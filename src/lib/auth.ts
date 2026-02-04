@@ -28,7 +28,7 @@ export async function login(userId: string) {
     // Validate the cookie name
     if (!session) return
 
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     cookieStore.set('session', session, {
         expires,
         httpOnly: true,
@@ -39,12 +39,12 @@ export async function login(userId: string) {
 }
 
 export async function logout() {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     cookieStore.set('session', '', { expires: new Date(0) })
 }
 
 export async function getSession() {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const session = cookieStore.get('session')?.value
     if (!session) return null
     try {
